@@ -1,0 +1,29 @@
+# Ignore Environment Variables
+.env
+
+# Ignore Virtual Environment
+.venv
+
+# Ignore Django Project main Cache
+**/cinnamon/__pycache__/
+
+# Ignore Django Migrations Cache
+**/migrations/__pycache__/
+
+# Ignore Python and Bytecode Cache
+**/__pycache__/
+*.py[cod]
+*$py.class
+
+# Ignore Coverage Reports
+.coverage
+
+# Django-Specific Files
+db.sqlite3
+*.sqlite3
+*.log
+.env
+secrets.json
+
+
+
