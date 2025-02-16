@@ -11,8 +11,8 @@ from product.models import Product
 class Review(models.Model):
     """Review class"""
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    product = models.ForeignKey(Product, on_delete=models.PROTECT)
     title = models.CharField(max_length=255)
     content = models.TextField()
     rating = models.DecimalField(max_digits=3, decimal_places=1)
