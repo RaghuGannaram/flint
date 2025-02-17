@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="container">
+        <h1>Welcome to Flint</h1>
+        <p>Your one-stop platform for product reviews.</p>
+        <a href="{% url 'product:catalog' %}">Browse Products</a>
+    </div>
+{% endblock %}

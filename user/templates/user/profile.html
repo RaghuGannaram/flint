@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    User Profile
+{% endblock %}
+
+{% block content %}
+    <h1>User Profile</h1>
+
+    {% if user.is_authenticated %}
+        <div class="profile-container">
+            <img class="profile-avatar" src="{{ user.avatar.url }}" alt="User Avatar">
+            <p><strong>Username:</strong> {{ user.username }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Full Name:</strong> {{ user.get_full_name }}</p>
+            <p><strong>Joined On:</strong> {{ user.date_joined|date:"F j, Y" }}</p>
+            <p><strong>Last Login:</strong> {{ user.last_login|date:"F j, Y, g:i A" }}</p>
+            {% if user.is_verified %}
+                <p><strong>Status:</strong> ✅ Verified User</p>
+            {% else %}
+                <p><strong>Status:</strong> ❌ Not Verified</p>
+            {% endif %}
+            
+            <a class="profile-edit-button" href="{% url 'user:edit_profile' %}">Edit Profile</a>
+
+            <form class="logout-form" action="{% url 'user:logout' %}" method="post">
+                {% csrf_token %}
+                <button class="form-submit">Logout</button>
+            </form>
+        </div>
+    {% else %}
+        <p>You are not logged in.</p>
+        <a href="{% url 'user:login' %}">Login</a>
+    {% endif %}
+{% endblock %}
