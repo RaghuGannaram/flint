@@ -21,7 +21,7 @@
                 <p><strong>Status:</strong> ❌ Not Verified</p>
             {% endif %}
             
-            <a class="profile-edit-button" href="{% url 'user:edit_profile' %}">Edit Profile</a>
+            {% comment %} <a class="profile-edit-button" href="{% url 'user:edit_profile' %}">Edit Profile</a> {% endcomment %}
 
             <form class="logout-form" action="{% url 'user:logout' %}" method="post">
                 {% csrf_token %}

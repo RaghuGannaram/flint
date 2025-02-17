@@ -4,9 +4,12 @@
 
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+
+from django.contrib.auth import get_user_model
 from .models import Product
 from .forms import CreateProduct  # pylint: disable=import-error
 
+User = get_user_model()
 
 def product_catalog_view(request):
     """product_catalog_view function"""
@@ -27,9 +30,11 @@ def product_enroll_view(request):
         form = CreateProduct(request.POST, request.FILES)
         if form.is_valid():
             newproduct = form.save(commit=False)
-            newproduct.user = request.user
+
+            newproduct.user = User.objects.get(pk=request.user.pk)
+
             newproduct.save()
             return redirect("product:catalog")
     else:
         form = CreateProduct()
-    return render(request, "product/catalog.html", {"form": form})
+    return render(request, "product/enroll.html", {"form": form})

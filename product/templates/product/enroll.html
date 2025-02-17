@@ -7,7 +7,7 @@
 {% block content %}
     <section>
         <h1>New Product</h1>
-        <form class="form-with-validation" action="{% url 'product:product_new' %}" method="post" enctype="multipart/form-data">
+        <form class="form-with-validation" action="{% url 'product:enroll' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %} 
             {{ form }}
             <button class="form-submit">Add Product</button>

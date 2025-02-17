@@ -2,17 +2,21 @@
     product/models.py
 """
 
+from django.contrib.auth import get_user_model
 from django.utils.text import slugify
 from django.db import models
 from category.models import Category
-from user.models import User
+
+User = get_user_model()
 
 
 class Product(models.Model):
     """Product Model"""
 
     name = models.CharField(max_length=255, unique=True)
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
+    category = models.ForeignKey(
+        Category, on_delete=models.SET_NULL, null=True, blank=True
+    )
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     description = models.TextField(blank=True)
     image = models.ImageField(upload_to="products/", blank=True, null=True)

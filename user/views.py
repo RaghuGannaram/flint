@@ -14,7 +14,7 @@ def register_view(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             login(request, form.save())
-            return redirect("")
+            return redirect("/")
     else:
         form = UserCreationForm()
     return render(request, "user/register.html", {"form": form})
@@ -29,20 +29,20 @@ def login_view(request):
             if "next" in request.POST:
                 return redirect(request.POST.get("next"))
 
-            return redirect("")
+            return redirect("/")
     else:
         form = AuthenticationForm()
-    return render(request, "users/login.html", {"form": form})
+    return render(request, "user/login.html", {"form": form})
 
 @login_required(login_url="user:login")
 def profile_view(request):
     """profile_view function"""
     user = request.user
-    return render(request, "users/profile.html", {"user": user})
+    return render(request, "user/profile.html", {"user": user})
 
 
 def logout_view(request):
     """logout_view function"""
     if request.method == "POST":
         logout(request)
-        return redirect("")
+        return redirect("/")
