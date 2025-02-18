@@ -1,9 +1,20 @@
-{% extends "layout.html" %}
+{% extends 'layout.html' %}
+
+{% block title %}
+  Home - Flint
+{% endblock %}
 
 {% block content %}
-    <div class="container">
-        <h1>Welcome to Flint</h1>
-        <p>Your one-stop platform for product reviews.</p>
-        <a href="{% url 'product:catalog' %}">Browse Products</a>
+  <section class="bg-gradient-to-r from-pink-500 via-[#d567a5] to-purple-500 min-h-screen flex items-center justify-center text-white">
+    <div class="text-center px-6 md:px-12 lg:px-24">
+      <!-- Heading -->
+      <h1 class="text-5xl font-bold mb-4">Welcome to Flint</h1>
+      <p class="text-lg max-w-2xl mx-auto leading-relaxed">Your one-stop platform for discovering authentic, user-driven product reviews. Get trusted insights, explore user experiences, and make informed decisions with AI-powered summaries.</p>
+
+      <!-- Call-to-Action -->
+      <div class="mt-6">
+        <a href="{% url 'product:catalog' %}" class="bg-white text-[#d567a5] font-semibold px-6 py-3 rounded-md shadow-md hover:bg-gray-200 transition">Browse Products</a>
+      </div>
     </div>
+  </section>
 {% endblock %}

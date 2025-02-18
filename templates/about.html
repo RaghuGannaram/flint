@@ -1,12 +1,91 @@
-{% extends "layout.html" %} 
+{% extends 'layout.html' %}
+
+{% block title %}
+  About Flint
+{% endblock %}
 
 {% block content %}
-    <div class="container">
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae unde numquam minima eum iste
-            exercitationem molestias corrupti nostrum accusantium facilis modi tenetur itaque libero omnis inventore,
-            maiores doloremque aspernatur provident! Repudiandae voluptas natus perspiciatis dignissimos architecto, velit
-            tempore fugit fuga. Blanditiis itaque eaque veritatis ducimus dolores animi eius reiciendis est?
-        </p>
+  <section class="container mx-auto px-6 py-12">
+    <h1 class="text-4xl font-bold text-gray-900 mb-6">About Flint</h1>
+    
+    <p class="text-lg text-gray-700 leading-relaxed">
+      Welcome to <strong>Flint</strong> – the **next-generation** product review platform built to empower users with **honest, transparent, and AI-enhanced** insights.  
+      Our goal is to **redefine the way users review and discover products**, ensuring **authenticity and trust** in every review.
+    </p>
+
+    <hr class="my-8 border-gray-300" />
+
+    <h2 class="text-2xl font-semibold mt-8">🚀 Our Mission</h2>
+    <p class="text-gray-700 mt-2 leading-relaxed">
+      To provide a **transparent, unbiased, and AI-powered** product review ecosystem where users can **share real experiences** and make **informed purchasing decisions** with confidence.
+    </p>
+
+    <h2 class="text-2xl font-semibold mt-8">🌟 Why Choose Flint?</h2>
+    <p class="text-gray-700 mt-2 leading-relaxed">
+      Unlike traditional review platforms, Flint **goes beyond simple star ratings**. We focus on:
+    </p>
+    <ul class="list-disc pl-6 text-gray-700 mt-4 space-y-2">
+      <li>🔍 **AI-powered review summaries** for quick insights.</li>
+      <li>✅ **Verified users** for authentic, real-world reviews.</li>
+      <li>📊 **Smart categorization** to easily find relevant products.</li>
+      <li>🌍 **Community-driven feedback** fostering trust.</li>
+      <li>🎯 **No fake reviews** – Every review is screened for accuracy.</li>
+    </ul>
+
+    <h2 class="text-2xl font-semibold mt-8">💡 How Flint Works</h2>
+    <p class="text-gray-700 mt-2 leading-relaxed">
+      Flint is designed to provide users with a **seamless experience** for writing, reading, and exploring product reviews:
+    </p>
+    <ol class="list-decimal pl-6 text-gray-700 mt-4 space-y-2">
+      <li>Sign up and create a profile to start sharing reviews.</li>
+      <li>Search for products and browse real user feedback.</li>
+      <li>Use **AI-powered summaries** to get key takeaways instantly.</li>
+      <li>Join discussions, ask questions, and engage with the Flint community.</li>
+      <li>Trust our **verification badge system** for authentic reviews.</li>
+    </ol>
+
+    <h2 class="text-2xl font-semibold mt-8">📢 What Our Users Say</h2>
+    <div class="mt-6 space-y-6">
+      <div class="bg-gray-100 p-6 rounded-md shadow-md">
+        <p class="text-gray-800 italic">"Flint has completely changed the way I shop online. The AI summaries make it so easy to compare products!"</p>
+        <p class="text-gray-600 mt-2 font-semibold">— Alex R., Verified User</p>
+      </div>
+      <div class="bg-gray-100 p-6 rounded-md shadow-md">
+        <p class="text-gray-800 italic">"Finally, a review platform that actually **filters out fake reviews**. Love the transparency!"</p>
+        <p class="text-gray-600 mt-2 font-semibold">— Samantha T., Tech Enthusiast</p>
+      </div>
+      <div class="bg-gray-100 p-6 rounded-md shadow-md">
+        <p class="text-gray-800 italic">"Flint's verification system is a game-changer! Now I can actually trust online reviews."</p>
+        <p class="text-gray-600 mt-2 font-semibold">— David L., Smart Shopper</p>
+      </div>
     </div>
+
+    <h2 class="text-2xl font-semibold mt-8">🌍 Join the Flint Community</h2>
+    <p class="text-gray-700 mt-2 leading-relaxed">
+      Flint is more than just a review platform – **it’s a movement toward fair and unbiased product transparency**.
+      By joining our community, you contribute to **authentic product reviews and real consumer trust**.
+    </p>
+
+    <div class="flex items-center space-x-4 mt-6">
+      <a href="{% url 'user:register' %}" class="bg-[#d567a5] text-white px-6 py-3 rounded-md hover:bg-[#c45692] transition">
+        Join Now
+      </a>
+      <a href="{% url 'product:catalog' %}" class="text-[#d567a5] font-semibold hover:underline">
+        Browse Products
+      </a>
+    </div>
+
+    <h2 class="text-2xl font-semibold mt-8">📞 Get in Touch</h2>
+    <p class="text-gray-700 mt-2 leading-relaxed">
+      We’d love to hear from you! Whether you have questions, feedback, or collaboration ideas, reach out to us.
+    </p>
+    <p class="text-gray-700 mt-4">
+      📧 Email: <strong>support@flint.com</strong><br />
+      📍 Address: 123 Flint HQ, New York, NY, USA
+    </p>
+
+    <p class="mt-6 text-gray-700">
+      For more information, visit our <a href="{% url 'contact' %}" class="text-[#d567a5] hover:underline">Contact Page</a>.
+    </p>
+  </section>
 {% endblock %}

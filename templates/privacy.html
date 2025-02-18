@@ -1,12 +1,122 @@
-{% extends "layout.html" %} 
+{% extends 'layout.html' %}
+
+{% block title %}
+  Privacy Policy - Flint
+{% endblock %}
 
 {% block content %}
-    <div class="container">
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae unde numquam minima eum iste
-            exercitationem molestias corrupti nostrum accusantium facilis modi tenetur itaque libero omnis inventore,
-            maiores doloremque aspernatur provident! Repudiandae voluptas natus perspiciatis dignissimos architecto, velit
-            tempore fugit fuga. Blanditiis itaque eaque veritatis ducimus dolores animi eius reiciendis est?
-        </p>
-    </div>
+  <section class="container mx-auto px-6 py-12">
+    <h1 class="text-4xl font-bold text-gray-900 mb-6">Privacy Policy</h1>
+
+    <p class="text-lg text-gray-700 leading-relaxed">
+      Welcome to <strong>Flint</strong>. Your privacy is important to us, and we are committed to protecting any personal information you share with us. This policy explains how we collect, use, and safeguard your data while using our platform.
+    </p>
+
+    <hr class="my-8 border-gray-300" />
+
+    <h2 class="text-2xl font-semibold mt-8">🔒 Information We Collect</h2>
+    <p class="text-gray-700 mt-2 leading-relaxed">We collect various types of data to improve our services and provide a better user experience:</p>
+
+    <ul class="list-disc pl-6 text-gray-700 mt-4 space-y-2">
+      <li>
+        <strong>Personal Information:</strong> Name, email address, profile picture, and other details when you register.
+      </li>
+      <li>
+        <strong>Review Data:</strong> Product reviews, ratings, and feedback you submit.
+      </li>
+      <li>
+        <strong>Technical Data:</strong> IP address, browser type, operating system, and access logs.
+      </li>
+      <li>
+        <strong>Cookies &amp; Tracking:</strong> We use cookies to remember preferences and improve platform performance.
+      </li>
+    </ul>
+
+    <h2 class="text-2xl font-semibold mt-8">📌 How We Use Your Data</h2>
+    <p class="text-gray-700 mt-2 leading-relaxed">We use your data to:</p>
+    <ul class="list-disc pl-6 text-gray-700 mt-4 space-y-2">
+      <li>
+        <strong>Provide platform functionality</strong> (e.g., displaying reviews, managing accounts).
+      </li>
+      <li>
+        <strong>Enhance security</strong> by detecting suspicious activities and preventing fraud.
+      </li>
+      <li>
+        <strong>Personalize recommendations</strong> and optimize content for a better user experience.
+      </li>
+      <li>
+        <strong>Improve Flint's features</strong> based on analytics and user behavior.
+      </li>
+      <li>
+        <strong>Communicate with users</strong> for updates, newsletters, and customer support.
+      </li>
+    </ul>
+
+    <h2 class="text-2xl font-semibold mt-8">🔍 Cookies & Tracking Technologies</h2>
+    <p class="text-gray-700 mt-2 leading-relaxed">
+      Flint uses <strong>cookies</strong> and similar tracking technologies to enhance user experience. Cookies help us:
+    </p>
+    <ul class="list-disc pl-6 text-gray-700 mt-4 space-y-2">
+      <li>Remember user preferences and login sessions.</li>
+      <li>Analyze site traffic and improve content recommendations.</li>
+      <li>Serve personalized advertisements (only with user consent).</li>
+    </ul>
+
+    <p class="text-gray-700 mt-4">You can manage your cookie preferences from your browser settings.</p>
+
+    <h2 class="text-2xl font-semibold mt-8">🔄 Data Sharing & Third-Party Services</h2>
+    <p class="text-gray-700 mt-2 leading-relaxed">
+      We do <strong>not sell or trade</strong> your personal data. However, we may share necessary data with:
+    </p>
+    <ul class="list-disc pl-6 text-gray-700 mt-4 space-y-2">
+      <li>
+        <strong>Service providers</strong> (e.g., hosting, analytics, security) to maintain Flint’s functionality.
+      </li>
+      <li>
+        <strong>Law enforcement</strong> if required by law or to protect user safety.
+      </li>
+      <li>
+        <strong>Third-party analytics tools</strong> (Google Analytics, etc.) to understand user behavior.
+      </li>
+    </ul>
+
+    <h2 class="text-2xl font-semibold mt-8">🛡️ Data Security</h2>
+    <p class="text-gray-700 mt-2 leading-relaxed">We take appropriate security measures to protect your data from unauthorized access, alteration, or misuse. Our security measures include:</p>
+    <ul class="list-disc pl-6 text-gray-700 mt-4 space-y-2">
+      <li>Encryption of sensitive user data.</li>
+      <li>Secure authentication mechanisms.</li>
+      <li>Regular security audits and monitoring.</li>
+    </ul>
+
+    <h2 class="text-2xl font-semibold mt-8">🛠️ Your Rights & Choices</h2>
+    <p class="text-gray-700 mt-2 leading-relaxed">As a user of Flint, you have the following rights:</p>
+    <ul class="list-disc pl-6 text-gray-700 mt-4 space-y-2">
+      <li>
+        <strong>Access your data:</strong> View what data we collect.
+      </li>
+      <li>
+        <strong>Edit or delete your data:</strong> Modify or remove your account details anytime.
+      </li>
+      <li>
+        <strong>Opt-out of marketing emails:</strong> Unsubscribe from newsletters or promotional content.
+      </li>
+      <li>
+        <strong>Disable cookies:</strong> Adjust browser settings to restrict cookies.
+      </li>
+    </ul>
+
+    <h2 class="text-2xl font-semibold mt-8">📞 Contact & Questions</h2>
+    <p class="text-gray-700 mt-2 leading-relaxed">If you have any questions about our privacy policy or how we handle your data, please reach out to us at:</p>
+    <p class="text-gray-700 mt-4">
+      📧 Email: <strong>privacy@flint.com</strong><br />
+      📍 Address: Hyderabad, India
+    </p>
+
+    <h2 class="text-2xl font-semibold mt-8">📄 Policy Updates</h2>
+    <p class="text-gray-700 mt-2 leading-relaxed">Flint may update this Privacy Policy from time to time. Any changes will be reflected on this page, and significant updates will be communicated to users.</p>
+
+    <p class="mt-6 text-gray-700">
+      For more information, visit our <a href="{% url 'terms' %}" class="text-[#d567a5] hover:underline">Terms of Service</a>.
+    </p>
+  </section>
 {% endblock %}

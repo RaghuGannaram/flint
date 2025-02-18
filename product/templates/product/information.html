@@ -1,18 +1,50 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-    {{ product.name }}
+  {{ product.name }} - Flint
 {% endblock %}
 
 {% block content %}
-    <section>
-        <img 
-            class="image" 
-            src="{{ product.image }}" 
-            alt="{{ product.name }}"
-        />
-        <h1>{{ product.name }}</h1>
-        <p>{{ product.created_at }}</p>
-        <p>{{ product.description }}</p>
-    </section>
+  <section class="min-h-screen container mx-auto px-6 py-20">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <!-- Product Image -->
+      <div class="flex justify-center">
+        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full max-w-lg object-cover rounded-lg shadow-lg" />
+      </div>
+
+      <!-- Product Details -->
+      <div class="flex flex-col space-y-4">
+        <h1 class="text-4xl font-bold text-gray-900">{{ product.name }}</h1>
+
+        <p class="text-gray-500">
+          <span class="font-semibold">Category:</span> {{ product.category.name }}
+        </p>
+
+        <p class="text-gray-500">
+          <span class="font-semibold">Added By:</span> {{ product.user.username }}
+        </p>
+
+        <p class="text-gray-500">
+          <span class="font-semibold">Date Added:</span> {{ product.created_at|date:'F j, Y' }}
+        </p>
+
+        <p class="text-lg text-gray-700 leading-relaxed">{{ product.description }}</p>
+
+        <!-- Call to Action Buttons -->
+        <div class="flex space-x-4 mt-6">
+          {% comment %} <a href="{% url 'review:write' product.slug %}" class="px-6 py-3 bg-[#d567a5] text-white font-semibold rounded-lg hover:bg-[#c45692] transition">Write a Review</a> {% endcomment %}
+
+          <button onclick="shareProduct()" class="px-6 py-3 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300 transition">Share Product</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    function shareProduct() {
+      const url = window.location.href
+      navigator.clipboard.writeText(url)
+      alert('Product link copied to clipboard!')
+    }
+  </script>
 {% endblock %}

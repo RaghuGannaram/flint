@@ -1,12 +1,82 @@
-{% extends "layout.html" %} 
+{% extends 'layout.html' %}
+
+{% block title %}
+  Terms of Service - Flint
+{% endblock %}
 
 {% block content %}
-    <div class="container">
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae unde numquam minima eum iste
-            exercitationem molestias corrupti nostrum accusantium facilis modi tenetur itaque libero omnis inventore,
-            maiores doloremque aspernatur provident! Repudiandae voluptas natus perspiciatis dignissimos architecto, velit
-            tempore fugit fuga. Blanditiis itaque eaque veritatis ducimus dolores animi eius reiciendis est?
-        </p>
-    </div>
+  <section class="container mx-auto px-6 py-12">
+    <h1 class="text-4xl font-bold text-gray-900 mb-6">Terms of Service</h1>
+
+    <p class="text-lg text-gray-700 leading-relaxed">
+      Welcome to <strong>Flint</strong>. By using our platform, you agree to the following terms and conditions. Please read them carefully before accessing or using our services.
+    </p>
+
+    <hr class="my-8 border-gray-300" />
+
+    <h2 class="text-2xl font-semibold mt-8">1. Acceptance of Terms</h2>
+    <p class="text-gray-700 mt-2 leading-relaxed">By using Flint, you confirm that you have read, understood, and agreed to these Terms of Service. If you do not agree with any part of these terms, you must discontinue use immediately.</p>
+
+    <h2 class="text-2xl font-semibold mt-8">2. User Responsibilities</h2>
+    <p class="text-gray-700 mt-2 leading-relaxed">As a user of Flint, you agree to:</p>
+    <ul class="list-disc pl-6 text-gray-700 mt-4 space-y-2">
+      <li>Provide truthful and genuine product reviews.</li>
+      <li>Respect other users and follow community guidelines.</li>
+      <li>Not engage in spam, fake reviews, or fraudulent activities.</li>
+      <li>Ensure that your reviews comply with legal and ethical standards.</li>
+    </ul>
+
+    <h2 class="text-2xl font-semibold mt-8">3. Content Ownership & Rights</h2>
+    <p class="text-gray-700 mt-2 leading-relaxed">Users retain ownership of the content they submit, but Flint reserves the right to:</p>
+    <ul class="list-disc pl-6 text-gray-700 mt-4 space-y-2">
+      <li>Display, share, and distribute submitted reviews across our platform.</li>
+      <li>Modify or remove content that violates our guidelines.</li>
+      <li>Use reviews for marketing, analytics, and user experience improvements.</li>
+    </ul>
+
+    <h2 class="text-2xl font-semibold mt-8">4. Prohibited Activities</h2>
+    <p class="text-gray-700 mt-2 leading-relaxed">The following activities are strictly prohibited on Flint:</p>
+    <ul class="list-disc pl-6 text-gray-700 mt-4 space-y-2">
+      <li>Posting false, misleading, or defamatory reviews.</li>
+      <li>Using Flint for illegal or unethical activities.</li>
+      <li>Uploading malicious content, spam, or promotional material.</li>
+      <li>Attempting to hack, disrupt, or manipulate the platform.</li>
+    </ul>
+
+    <h2 class="text-2xl font-semibold mt-8">5. Service Availability & Modifications</h2>
+    <p class="text-gray-700 mt-2 leading-relaxed">Flint reserves the right to modify or discontinue services at any time. We may also update these Terms of Service periodically. Users will be notified of major updates.</p>
+
+    <h2 class="text-2xl font-semibold mt-8">6. Termination of Accounts</h2>
+    <p class="text-gray-700 mt-2 leading-relaxed">Flint may suspend or terminate accounts that violate our terms, including but not limited to:</p>
+    <ul class="list-disc pl-6 text-gray-700 mt-4 space-y-2">
+      <li>Users engaging in fraudulent or abusive behavior.</li>
+      <li>Repeated violations of community guidelines.</li>
+      <li>Any illegal or prohibited activity on the platform.</li>
+    </ul>
+
+    <h2 class="text-2xl font-semibold mt-8">7. Limitation of Liability</h2>
+    <p class="text-gray-700 mt-2 leading-relaxed">Flint is not responsible for the accuracy of user-generated reviews or third-party content. By using the platform, you acknowledge that Flint is not liable for any damages resulting from your reliance on content found on the site.</p>
+
+    <h2 class="text-2xl font-semibold mt-8">8. Privacy Policy & Data Protection</h2>
+    <p class="text-gray-700 mt-2 leading-relaxed">
+      Your use of Flint is also governed by our <a href="{% url 'privacy' %}" class="text-[#d567a5] hover:underline">Privacy Policy</a>, which outlines how we collect, store, and protect user data.
+    </p>
+
+    <h2 class="text-2xl font-semibold mt-8">9. Governing Law</h2>
+    <p class="text-gray-700 mt-2 leading-relaxed">These Terms of Service are governed by and interpreted under the laws of the United States. Any disputes must be resolved in courts within the appropriate jurisdiction.</p>
+
+    <h2 class="text-2xl font-semibold mt-8">10. Contact & Support</h2>
+    <p class="text-gray-700 mt-2 leading-relaxed">If you have any questions regarding these terms, please reach out to:</p>
+    <p class="text-gray-700 mt-4">
+      📧 Email: <strong>support@flint.com</strong><br />
+      📍 Address: Hyderabad, India
+    </p>
+
+    <h2 class="text-2xl font-semibold mt-8">📄 Updates to These Terms</h2>
+    <p class="text-gray-700 mt-2 leading-relaxed">Flint reserves the right to update these Terms of Service at any time. Continued use of the platform after modifications signifies your acceptance of the new terms.</p>
+
+    <p class="mt-6 text-gray-700">
+      For more information, visit our <a href="{% url 'privacy' %}" class="text-[#d567a5] hover:underline">Privacy Policy</a>.
+    </p>
+  </section>
 {% endblock %}

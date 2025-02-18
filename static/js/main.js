@@ -1,17 +1,35 @@
-console.log("Hello from main.js");
+document.addEventListener("DOMContentLoaded", () => {
+    console.log("DOM loaded successfully..!");
 
-document.getElementById("menu-button")?.addEventListener("click", function () {
-    console.log("menu button clicked");
-    document.getElementById("mobile-menu").classList.toggle("hidden");
+    // Set current year dynamically
+    document.getElementById("current-year").textContent = new Date().getFullYear();
+
+    // Event listeners using delegation
+    document.body.addEventListener("click", (event) => {
+        const menuButton = document.getElementById("menu-button");
+        const profileButton = document.getElementById("profile-button");
+        const mobileMenu = document.getElementById("mobile-menu");
+        const profileMenu = document.getElementById("profile-menu");
+
+        // Toggle mobile menu
+        if (menuButton?.contains(event.target)) {
+            toggleClass(mobileMenu, "hidden");
+        } else {
+            mobileMenu?.classList.add("hidden");
+        }
+
+        // Toggle profile menu
+        if (profileButton?.contains(event.target)) {
+            toggleClass(profileMenu, "hidden");
+        } else if (!profileMenu?.contains(event.target)) {
+            profileMenu?.classList.add("hidden");
+        }
+    });
 });
 
-document.getElementById("profile-button")?.addEventListener("click", function () {
-    console.log("profile button clicked");
-    document.getElementById("profile-menu").classList.toggle("hidden");
-});
-
-document.getElementById("profile-menu")?.addEventListener("click", function (event) {
-    if (!profileButton.contains(event.target) && !profileMenu.contains(event.target)) {
-        document.getElementById("profile-menu").classList.add("hidden");
+// Utility function to toggle a class safely
+function toggleClass(element, className) {
+    if (element) {
+        element.classList.toggle(className);
     }
-});
+}

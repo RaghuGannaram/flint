@@ -1,14 +1,43 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-    Register a New User
+  Register a New User
 {% endblock %}
 
 {% block content %}
-    <h1>Register a New User</h1>
-    <form class="form-with-validation" action="{% url 'user:register' %}" method="post">
+  <div class="min-h-screen flex items-center justify-center bg-gray-100">
+    <div class="w-full max-w-md bg-white p-8 shadow-lg rounded-lg">
+      <!-- Heading -->
+      <h1 class="text-2xl font-bold text-gray-900 text-center mb-6">Create an Account</h1>
+
+      <!-- Registration Form -->
+      <form action="{% url 'user:register' %}" method="post" class="space-y-4">
         {% csrf_token %}
-        {{ form }}
-        <button class="form-submit">Submit</button>
-    </form>
+
+        <!-- Render Django Form Fields with Tailwind Styling -->
+        <div class="space-y-4">
+          {% for field in form %}
+            <div>
+              <label for="{{ field.id_for_label }}" class="block text-gray-700 font-medium mb-1">{{ field.label }}</label>
+
+              <input id="{{ field.id_for_label }}" name="{{ field.name }}" type="{{ field.field.widget.input_type }}" placeholder="Enter value" class="w-full px-3 py-2 rounded-md border border-gray-300 text-gray-900 outline-none focus:outline-none focus:ring-0 focus:border-[#c45692]" />
+
+              {% if field.errors %}
+                <p class="text-red-500 text-sm mt-1">{{ field.errors.0 }}</p>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="w-full bg-[#d567a5] text-white font-semibold py-2 px-4 rounded-md hover:bg-[#c45692] transition">Register</button>
+
+        <!-- Login Link -->
+        <p class="text-center text-gray-600 text-sm mt-4">
+          Already have an account?
+          <a href="{% url 'user:login' %}" class="text-[#d567a5] hover:underline font-medium">Login here</a>
+        </p>
+      </form>
+    </div>
+  </div>
 {% endblock %}
