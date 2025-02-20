@@ -1,0 +1,47 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  Edit Profile - Flint
+{% endblock %}
+
+{% block content %}
+  <section class="min-h-screen flex items-center justify-center bg-gray-100 p-6">
+    <div class="w-full max-w-2xl bg-white shadow-md rounded-lg p-6">
+      <h1 class="text-2xl font-bold text-gray-900 mb-4">Edit Profile</h1>
+
+      <form action="{% url 'user:edit_profile' %}" method="post" enctype="multipart/form-data" class="space-y-4">
+        {% csrf_token %}
+
+        <!-- Render Form Fields -->
+        <div class="space-y-4">
+          {% for field in form %}
+            <div>
+              <label for="{{ field.id_for_label }}" class="block text-gray-700 font-medium">{{ field.label }}</label>
+              {% if field.name == 'bio' %}
+                <!-- Apply larger height for textarea -->
+                <textarea id="{{ field.id_for_label }}" name="{{ field.name }}" placeholder="Enter value" rows="5" class="w-full px-3 py-2 rounded-md border border-gray-300 text-gray-900 outline-none focus:outline-none focus:ring-0 focus:border-[#c45692]">{{ field.value }}</textarea>
+              {% else %}
+                <input id="{{ field.id_for_label }}" name="{{ field.name }}" value="{{ field.value }}" type="{{ field.field.widget.input_type }}" placeholder="Enter value" class="w-full px-3 py-2 rounded-md border border-gray-300 text-gray-900 outline-none focus:outline-none focus:ring-0 focus:border-[#c45692]" />
+              {% endif %}
+
+              {% if field.errors %}
+                <p class="text-red-500 text-sm mt-1">{{ field.errors.0 }}</p>
+              {% endif %}
+              {% if field.errors %}
+                <p class="text-red-500 text-sm">{{ field.errors.0 }}</p>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition">Save Changes</button>
+      </form>
+
+      <!-- Back to Profile Button -->
+      <div class="mt-4 text-center">
+        <a href="{% url 'user:profile' %}" class="text-blue-600 hover:underline">Back to Profile</a>
+      </div>
+    </div>
+  </section>
+{% endblock %}

@@ -30,7 +30,11 @@
         <div class="relative">
           <button id="profile-button" class="flex items-center space-x-2 transition hover:text-[#d567a5] focus:outline-none">
             <i class="fas fa-user-circle text-2xl"></i>
-            <span>Hello, {{ user.username }}</span>
+            {% if user.first_name %}
+              <span>Hello, {{ user.first_name }}</span>
+            {% else %}
+              <span>Hello, {{ user.username }}</span>
+            {% endif %}
           </button>
 
           <!-- Dropdown -->

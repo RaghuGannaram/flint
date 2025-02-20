@@ -8,6 +8,7 @@ from django.contrib.auth import login, logout
 from .forms import (
     CustomUserCreationForm,
     CustomAuthenticationForm,
+    UserProfileForm,
 )  # Import custom forms
 
 
@@ -50,3 +51,20 @@ def logout_view(request):
     if request.method == "POST":
         logout(request)
         return redirect("/")
+
+
+@login_required
+def edit_profile_view(request):
+    """Handles profile update form"""
+
+    user = request.user  # Get current user
+
+    if request.method == "POST":
+        form = UserProfileForm(request.POST, request.FILES, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect("user:profile")  # Redirect to profile page after update
+    else:
+        form = UserProfileForm(instance=user)
+
+    return render(request, "user/edit_profile.html", {"form": form})
