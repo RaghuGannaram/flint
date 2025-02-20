@@ -10,7 +10,7 @@ class User(AbstractUser):
     """User class that extends the AbstractUser class."""
 
     bio = models.TextField(blank=True, null=True)
-    avatar = models.ImageField(upload_to="avatars/", default="avatars/default.png")
+    avatar = models.ImageField(upload_to="avatars/", blank=True, null=True)
     is_verified = models.BooleanField(default=False)
 
     # Fix the related_name conflicts
