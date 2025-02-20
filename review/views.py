@@ -21,7 +21,19 @@ def review_catalog_view(request):
 def review_information_view(request, slug):
     """review_information_view function"""
     review = Review.objects.get(slug=slug)
-    return render(request, "review/information.html", {"review": review})
+    review_tags = review.tags.split(",") if review.tags else []
+    review_rating = range(review.rating)
+    total_rating = range(5 - review.rating)
+    return render(
+        request,
+        "review/information.html",
+        {
+            "review": review,
+            "review_tags": review_tags,
+            "review_rating": review_rating,
+            "total_rating": total_rating,
+        },
+    )
 
 
 @login_required(login_url="user:login")

@@ -1,40 +1,67 @@
 {% extends 'layout.html' %}
 
+{% load static %}
+
 {% block title %}
-  {{ review.name }} - Flint
+  {{ review.product_name }} - Flint
 {% endblock %}
 
 {% block content %}
-  <section class="min-h-screen container mx-auto px-6 py-20">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-      <!-- Review Image -->
-      <div class="flex justify-center">
-        <img src="{{ review.image.url }}" alt="{{ review.name }}" class="w-full max-w-lg object-cover rounded-lg shadow-lg" />
-      </div>
+  <section class="min-h-screen bg-gray-100 flex items-center justify-center py-16">
+    <div class="container mx-auto px-6 lg:px-20">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 bg-white backdrop-blur-lg bg-opacity-70 shadow-lg rounded-lg overflow-hidden p-8">
+        <!-- Review Image -->
+        <div class="flex justify-center">
+          {% if review.image %}
+            <img src="{{ review.image.url }}" alt="{{ review.product_name }}" class="w-full max-w-lg rounded-lg shadow-lg object-cover" />
+          {% else %}
+            <img src="{% static 'images/placeholder-product.jpg' %}" alt="{{ review.product_name }}" class="w-full max-w-lg rounded-lg shadow-lg object-cover" />
+          {% endif %}
+        </div>
 
-      <!-- Review Details -->
-      <div class="flex flex-col space-y-4">
-        <h1 class="text-4xl font-bold text-gray-900">{{ review.name }}</h1>
+        <!-- Review Details -->
+        <div class="flex flex-col space-y-6">
+          <!-- Review Title -->
+          <h1 class="text-4xl font-bold text-gray-900">{{ review.product_name }}</h1>
 
-        <p class="text-gray-500">
-          <span class="font-semibold">Category:</span> {{ review.category.name }}
-        </p>
+          <!-- Category & Author -->
+          <p class="text-gray-600">
+            <span class="font-semibold">Category:</span> {{ review.category }}
+          </p>
+          <p class="text-gray-600">
+            <span class="font-semibold">Added By:</span> {{ review.user.username }}
+          </p>
+          <p class="text-gray-600">
+            <span class="font-semibold">Date Added:</span> {{ review.created_at|date:'F j, Y' }}
+          </p>
 
-        <p class="text-gray-500">
-          <span class="font-semibold">Added By:</span> {{ review.user.username }}
-        </p>
+          <!-- Rating Stars -->
+          <div class="flex items-center space-x-4">
+            <span class="font-semibold text-gray-600">Rating:</span>
+            {% for _ in review_rating %}
+              <i class="fas fa-star text-yellow-400"></i>
+            {% endfor %}
+            {% for _ in total_rating %}
+              <i class="far fa-star text-gray-400"></i>
+            {% endfor %}
+          </div>
 
-        <p class="text-gray-500">
-          <span class="font-semibold">Date Added:</span> {{ review.created_at|date:'F j, Y' }}
-        </p>
+          <!-- Tags -->
+          {% if review.tags %}
+            <div class="flex flex-wrap gap-2">
+              {% for tag in review_tags %}
+                <span class="px-3 py-1 text-sm font-medium text-white bg-[#d567a5] rounded-full shadow-md">{{ tag }}</span>
+              {% endfor %}
+            </div>
+          {% endif %}
 
-        <p class="text-lg text-gray-700 leading-relaxed">{{ review.description }}</p>
+          <!-- Review Content -->
+          <p class="text-lg text-gray-700 leading-relaxed">{{ review.content }}</p>
 
-        <!-- Call to Action Buttons -->
-        <div class="flex space-x-4 mt-6">
-          {% comment %} <a href="{% url 'review:write' review.slug %}" class="px-6 py-3 bg-[#d567a5] text-white font-semibold rounded-lg hover:bg-[#c45692] transition">Write a Review</a> {% endcomment %}
-
-          <button onclick="shareReview()" class="px-6 py-3 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300 transition">Share Review</button>
+          <!-- Call to Action Buttons -->
+          <div class="flex space-x-4 mt-6">
+            <button onclick="shareReview()" class="px-6 py-3 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300 transition">🔗 Share Review</button>
+          </div>
         </div>
       </div>
     </div>
