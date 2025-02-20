@@ -17,9 +17,9 @@
           <a href="{% url 'review:information' slug=review.slug %}" class="group block">
             <div class="h-full flex flex-col bg-gray-300 rounded-lg overflow-hidden drop-shadow-[0_0_4px_rgba(0,0,0,0.3)] hover:drop-shadow-[0_0_4px_rgba(0,0,0,0.4)] transition">
               <!-- Review Image -->
-              <div class="relative h-48 w-full bg-gray-200 flex items-center justify-center">
+              <div class="relative h-48 w-full bg-gray-800 flex items-center justify-center">
                 {% if review.image %}
-                  <img src="{{ review.image.url }}" alt="{{ review.product_name }}" class="w-full h-full object-cover" />
+                  <img src="{{ review.image.url }}" alt="{{ review.product_name }}" class="w-full h-full object-cover fade-mask" />
                 {% else %}
                   <span class="text-gray-400 text-sm">No Image Available</span>
                 {% endif %}
@@ -44,4 +44,11 @@
       <p class="text-center text-gray-500">No reviews available at the moment.</p>
     {% endif %}
   </section>
+
+  <style>
+    .fade-mask {
+      mask-image: radial-gradient(circle, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.3) 100%);
+      -webkit-mask-image: radial-gradient(circle, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.3) 100%);
+    }
+  </style>
 {% endblock %}
