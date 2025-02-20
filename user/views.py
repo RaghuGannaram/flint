@@ -3,27 +3,30 @@
 """
 
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout
+from .forms import (
+    CustomUserCreationForm,
+    CustomAuthenticationForm,
+)  # Import custom forms
 
 
 def register_view(request):
     """register_view function"""
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             login(request, form.save())
             return redirect("/")
     else:
-        form = UserCreationForm()
+        form = CustomUserCreationForm()
     return render(request, "user/register.html", {"form": form})
 
 
 def login_view(request):
     """login_view function"""
     if request.method == "POST":
-        form = AuthenticationForm(data=request.POST)
+        form = CustomAuthenticationForm(data=request.POST)
         if form.is_valid():
             login(request, form.get_user())
             if "next" in request.POST:
@@ -31,8 +34,9 @@ def login_view(request):
 
             return redirect("/")
     else:
-        form = AuthenticationForm()
+        form = CustomAuthenticationForm()
     return render(request, "user/login.html", {"form": form})
+
 
 @login_required(login_url="user:login")
 def profile_view(request):

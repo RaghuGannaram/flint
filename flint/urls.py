@@ -30,7 +30,6 @@ urlpatterns = [
     path("terms/", terms_view, name="terms"),
     path("privacy/", privacy_view, name="privacy"),
     path("user/", include("user.urls")),
-    path("product/", include("product.urls")),
     path("review/", include("review.urls")),
 ]
 

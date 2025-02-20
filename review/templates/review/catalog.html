@@ -1,33 +1,33 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-  Product Catalog - Flint
+  Review Catalog - Flint
 {% endblock %}
 
 {% block content %}
   <section class="container mx-auto px-6 py-12">
-    <h1 class="text-4xl font-bold text-gray-900 text-center mb-8">Explore the Products</h1>
+    <h1 class="text-4xl font-bold text-gray-900 text-center mb-8">Explore the Reviews</h1>
 
-    {% if products %}
-      <!-- Product Grid -->
+    {% if reviews %}
+      <!-- Review Grid -->
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {% for product in products %}
-          <a href="{% url 'product:information' slug=product.slug %}" class="group block">
+        {% for review in reviews %}
+          <a href="{% url 'review:information' slug=review.slug %}" class="group block">
             <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition overflow-hidden">
-              <!-- Product Image -->
+              <!-- Review Image -->
               <div class="relative h-48 bg-gray-100 flex items-center justify-center">
-                {% if product.image %}
-                  <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-full object-cover" />
+                {% if review.image %}
+                  <img src="{{ review.image.url }}" alt="{{ review.product_name }}" class="w-full h-full object-cover" />
                 {% else %}
                   <span class="text-gray-400 text-sm">No Image Available</span>
                 {% endif %}
               </div>
 
-              <!-- Product Details -->
+              <!-- Review Details -->
               <div class="p-4">
-                <h2 class="text-lg font-semibold text-gray-900 group-hover:text-[#d567a5] transition">{{ product.name }}</h2>
-                <p class="text-sm text-gray-500">{{ product.category }}</p>
-                <p class="text-gray-700 mt-2 text-sm line-clamp-2">{{ product.description }}</p>
+                <h2 class="text-lg font-semibold text-gray-900 group-hover:text-[#d567a5] transition">{{ review.product_name }}</h2>
+                <p class="text-sm text-gray-500">{{ review.category }}</p>
+                <p class="text-gray-700 mt-2 text-sm line-clamp-2">{{ review.content }}</p>
               </div>
 
               <!-- View Details Button -->
@@ -39,7 +39,7 @@
         {% endfor %}
       </div>
     {% else %}
-      <p class="text-center text-gray-500">No products available at the moment.</p>
+      <p class="text-center text-gray-500">No reviews available at the moment.</p>
     {% endif %}
   </section>
 {% endblock %}

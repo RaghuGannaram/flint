@@ -1,17 +1,17 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-  Add a New Product
+  Add a New Review
 {% endblock %}
 
 {% block content %}
   <div class="min-h-screen flex items-center justify-center bg-gray-100">
     <div class="w-full max-w-lg bg-white my-16 p-8 shadow-lg rounded-lg">
       <!-- Heading -->
-      <h1 class="text-3xl font-bold text-gray-900 text-center mb-6">Enroll a New Product</h1>
+      <h1 class="text-3xl font-bold text-gray-900 text-center mb-6">Enroll a New Review</h1>
 
-      <!-- Product Enrollment Form -->
-      <form action="{% url 'product:enroll' %}" method="post" enctype="multipart/form-data" class="space-y-4">
+      <!-- Review Enrollment Form -->
+      <form action="{% url 'review:enroll' %}" method="post" enctype="multipart/form-data" class="space-y-4">
         {% csrf_token %}
 
         <!-- Render Django Form Fields with Tailwind Styling -->
@@ -35,7 +35,7 @@
         </div>
 
         <!-- Submit Button -->
-        <button type="submit" class="w-full bg-[#d567a5] text-white font-semibold py-2 px-4 rounded-md hover:bg-[#c45692] transition">Add Product</button>
+        <button type="submit" class="w-full bg-[#d567a5] text-white font-semibold py-2 px-4 rounded-md hover:bg-[#c45692] transition">Add Review</button>
       </form>
     </div>
   </div>
