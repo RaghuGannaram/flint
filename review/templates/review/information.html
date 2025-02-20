@@ -7,22 +7,22 @@
 {% endblock %}
 
 {% block content %}
-  <section class="min-h-screen bg-gray-100 flex items-center justify-center py-16">
-    <div class="container mx-auto px-6 lg:px-20">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 bg-white backdrop-blur-lg bg-opacity-70 shadow-lg rounded-lg overflow-hidden p-8">
+  <section class="min-h-screen bg-gray-300 flex items-center justify-center py-16">
+    <div class="container mx-auto lg:px-20">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-10 bg-gray-300 backdrop-blur-lg bg-opacity-70 rounded-lg overflow-hidden p-8">
         <!-- Review Image -->
-        <div class="flex justify-center">
+        <div class="flex justify-center items-center">
           {% if review.image %}
-            <img src="{{ review.image.url }}" alt="{{ review.product_name }}" class="w-full max-w-lg rounded-lg shadow-lg object-cover" />
+            <img src="{{ review.image.url }}" alt="{{ review.product_name }}" class="w-full max-w-lg object-contain rounded-lg" />
           {% else %}
-            <img src="{% static 'images/placeholder-product.jpg' %}" alt="{{ review.product_name }}" class="w-full max-w-lg rounded-lg shadow-lg object-cover" />
+            <img src="{% static 'images/placeholder-product.jpg' %}" alt="{{ review.product_name }}" class="w-full max-w-lg object-contain rounded-lg" />
           {% endif %}
         </div>
 
         <!-- Review Details -->
         <div class="flex flex-col space-y-6">
           <!-- Review Title -->
-          <h1 class="text-4xl font-bold text-gray-900">{{ review.product_name }}</h1>
+          <h1 class="text-4xl font-medium text-gray-900 self-center mb-6">{{ review.product_name }}</h1>
 
           <!-- Category & Author -->
           <p class="text-gray-600">
