@@ -30,7 +30,7 @@ SECRET_KEY = "django-insecure-ktwmnl&jt5cnb-62ay4nsf8#y$z3wj%pnxf%i^qj8z_=h-m^**
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["https://flint-1cek.onrender.com"]
 
 
 # Application definition
