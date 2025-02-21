@@ -1263,6 +1263,10 @@ select {
   --tw-gradient-to: #a855f7 var(--tw-gradient-to-position);
 }
 
+.bg-contain {
+  background-size: contain;
+}
+
 .object-contain {
   -o-object-fit: contain;
      object-fit: contain;
@@ -1271,6 +1275,11 @@ select {
 .object-cover {
   -o-object-fit: cover;
      object-fit: cover;
+}
+
+.object-center {
+  -o-object-position: center;
+     object-position: center;
 }
 
 .p-4 {
