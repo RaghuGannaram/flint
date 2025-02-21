@@ -118,8 +118,7 @@ USERS_REVIEWS = {
             4,
             "gpu,ai,deep-learning,nvidia,ml",
             "nvidia-rtx-4090-by-dinesh",
-            "nvdia_rtx_4090.jpg"
-
+            "nvdia_rtx_4090.jpg",
         ),
         (
             "Python 3.11",
@@ -128,7 +127,7 @@ USERS_REVIEWS = {
             5,
             "python,software,ai,performance,coding",
             "python-3-11-by-dinesh",
-            "nvdia_rtx_4090.jpg",
+            "python3.png",
         ),
         (
             "Samsung Galaxy Z Fold 4",
@@ -649,6 +648,7 @@ class Command(BaseCommand):
             for product_name, category, content, rating, tags, slug, image in reviews:
                 local_image_path = os.path.join(LOCAL_IMAGE_FOLDER, image)
                 new_image_path = os.path.join(MEDIA_FOLDER, image)
+                tags_array = [tags.strip() for tags in tags.split(",") if tags.strip()]
 
                 if os.path.exists(local_image_path):
                     shutil.copy(local_image_path, new_image_path)
@@ -661,7 +661,7 @@ class Command(BaseCommand):
                     product_name=product_name,
                     category=category,
                     content=content,
-                    tags=tags,
+                    tags=tags_array,
                     rating=rating,
                     image=image_path,
                     slug=slug,
