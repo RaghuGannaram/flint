@@ -2,9 +2,13 @@
     review/views.py
 """
 
-from django.shortcuts import render, redirect
+from datetime import timedelta
+from django.utils.timezone import now
+from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
+from django.contrib.postgres.search import TrigramSimilarity
+from django.db.models import Q
 from django.contrib.auth.decorators import login_required
-
+from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
 from review.forms import CreateReview  # pylint: disable=import-error
 from .models import Review
@@ -51,3 +55,23 @@ def review_enroll_view(request):
     else:
         form = CreateReview()
     return render(request, "review/enroll.html", {"form": form})
+
+
+def search_reviews(query, min_rating=None, recent_days=None):
+    """search_reviews function"""
+    reviews = Review.objects.annotate(
+        search=SearchVector("product_name", "content"),
+        rank=SearchRank(SearchVector("product_name", "content"), SearchQuery(query)),
+        similarity=TrigramSimilarity("product_name", query),
+    )
+
+    reviews = reviews.filter(
+        Q(search=SearchQuery(query)) | Q(similarity__gt=0.4) | Q(tags__icontains=query)
+    )
+    if min_rating:
+        reviews = reviews.filter(rating__gte=min_rating)
+
+    if recent_days:
+        reviews = reviews.filter(created_at__gte=now() - timedelta(days=recent_days))
+
+    return reviews.order_by("-rank", "-similarity")
