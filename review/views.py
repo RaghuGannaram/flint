@@ -7,6 +7,7 @@ from django.utils.timezone import now
 from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 from django.contrib.postgres.search import TrigramSimilarity, TrigramDistance
 from django.db.models import Q
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
@@ -18,18 +19,31 @@ User = get_user_model()
 
 def review_catalog_view(request):
     """review_catalog_view function"""
-    reviews = Review.objects.all()
 
     if request.method == "GET":
         query = request.GET.get("q", "").strip()
         min_rating = request.GET.get("min_rating", "").strip()
         recent_days = request.GET.get("recent_days", "").strip()
 
+        page = request.GET.get("page", 1)
+        per_page = 12
+
         min_rating = int(min_rating) if min_rating.isdigit() else None
         recent_days = int(recent_days) if recent_days.isdigit() else None
 
-        if query:
+        if query or (min_rating is not None) or (recent_days is not None):
             reviews = search_reviews(query, min_rating, recent_days)
+        else:
+            reviews = Review.objects.all().order_by("-created_at")
+
+        paginator = Paginator(reviews, per_page)
+
+        try:
+            reviews = paginator.page(page)
+        except PageNotAnInteger:
+            reviews = paginator.page(1)
+        except EmptyPage:
+            reviews = paginator.page(paginator.num_pages)
 
     return render(request, "review/catalog.html", {"reviews": reviews})
 

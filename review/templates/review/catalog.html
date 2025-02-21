@@ -76,6 +76,37 @@
     {% else %}
       <p class="text-center text-gray-500">No reviews found for "{{ request.GET.q }}".</p>
     {% endif %}
+
+    <!-- Pagination Section -->
+    {% if reviews.has_other_pages %}
+    <div class="flex justify-center mt-10">
+    <nav class="inline-flex space-x-2">
+        <!-- Previous Page -->
+        {% if reviews.has_previous %}
+        <a href="?q={{ request.GET.q }}&min_rating={{ request.GET.min_rating }}&recent_days={{ request.GET.recent_days }}&page={{ reviews.previous_page_number }}"
+            class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition">← Previous</a>
+        {% endif %}
+
+        <!-- Page Numbers -->
+        {% for num in reviews.paginator.page_range %}
+        {% if reviews.number == num %}
+            <span class="px-4 py-2 bg-[#d567a5] text-white rounded-md">{{ num }}</span>
+        {% else %}
+            <a href="?q={{ request.GET.q }}&min_rating={{ request.GET.min_rating }}&recent_days={{ request.GET.recent_days }}&page={{ num }}"
+            class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition">{{ num }}</a>
+        {% endif %}
+        {% endfor %}
+
+        <!-- Next Page -->
+        {% if reviews.has_next %}
+        <a href="?q={{ request.GET.q }}&min_rating={{ request.GET.min_rating }}&recent_days={{ request.GET.recent_days }}&page={{ reviews.next_page_number }}"
+            class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition">Next →</a>
+        {% endif %}
+    </nav>
+    </div>
+    {% endif %}
+
+    
   </section>
 
   <style>
