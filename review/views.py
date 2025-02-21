@@ -9,9 +9,9 @@ from django.contrib.postgres.search import TrigramSimilarity, TrigramDistance
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import get_user_model
-from review.forms import CreateReview  # pylint: disable=import-error
+from review.forms import CreateReview, ReviewEditForm  # pylint: disable=import-error
 from .models import Review
 
 User = get_user_model()
@@ -50,7 +50,9 @@ def review_catalog_view(request):
 
 def review_information_view(request, slug):
     """review_information_view function"""
-    review = Review.objects.get(slug=slug)
+
+    review = get_object_or_404(Review, slug=slug)
+    is_author = review.user == request.user
     review_rating = range(review.rating)
     total_rating = range(5 - review.rating)
     return render(
@@ -58,6 +60,7 @@ def review_information_view(request, slug):
         "review/information.html",
         {
             "review": review,
+            "is_author": is_author,
             "review_tags": review.tags,
             "review_rating": review_rating,
             "total_rating": total_rating,
@@ -80,6 +83,26 @@ def review_enroll_view(request):
     else:
         form = CreateReview()
     return render(request, "review/enroll.html", {"form": form})
+
+
+@login_required(login_url="user:login")
+def review_edit_view(request, slug):
+    """review_edit_view function"""
+
+    review = get_object_or_404(Review, slug=slug)
+
+    if review.user != request.user:
+        return redirect("review:information", slug=review.slug)
+
+    if request.method == "POST":
+        form = ReviewEditForm(request.POST, instance=review)
+        if form.is_valid():
+            form.save()
+            return redirect("review:information", slug=review.slug)
+    else:
+        form = ReviewEditForm(instance=review)
+
+    return render(request, "review/edit.html", {"form": form, "review": review})
 
 
 def search_reviews(query, min_rating=None, recent_days=None):

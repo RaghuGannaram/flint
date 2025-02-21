@@ -14,3 +14,13 @@ class CreateReview(forms.ModelForm):
 
         model = Review
         fields = ["product_name", "category", "content", "tags", "rating", "image"]
+
+
+class ReviewEditForm(forms.ModelForm):
+    """Form to edit a review"""
+
+    class Meta:
+        """Meta class"""
+
+        model = Review
+        fields = ["product_name", "category", "content", "tags", "rating", "image"]
