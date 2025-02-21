@@ -11,7 +11,7 @@
     <h1 class="text-4xl font-light text-gray-700 text-center mb-8">Explore the Reviews</h1>
 
     <!-- Search Form -->
-    <form method="GET" action="{% url 'review:catalog' %}" class="w-full flex flex-col md:flex-row justify-around gap-2 mb-20">
+    <form method="GET" action="{% url 'review:catalog' %}" class="w-full flex flex-col md:flex-row justify-around gap-2 my-20">
   
         <!-- Search Input -->
         <input type="text" name="q" placeholder="Search reviews..." 
@@ -37,7 +37,7 @@
         </select>
       
         <!-- Search Button -->
-        <button type="submit" class="ml-2 w-full md:w-1/6 bg-[#d567a5] text-white rounded-lg hover:bg-[#b4568d] transition">
+        <button type="submit" class="w-full min-h-10 md:w-1/6 bg-[#d567a5] text-white rounded-lg hover:bg-[#b4568d] transition">
           Search
         </button>
       </form>
