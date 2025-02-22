@@ -9,9 +9,8 @@ class S3StaticStorage(S3Boto3Storage):
     """Custom S3 storage for static files."""
 
     location = "static"
-    default_acl = "public-read"  # Publicly readable
-    file_overwrite = False  # Prevent overwriting static files
-    querystring_auth = False  # No authentication required for static assets
+    default_acl = None # Fine-grained access control via S3 policies
+    file_overwrite = True  # Prevent overwriting static files
 
 
 class S3MediaStorage(S3Boto3Storage):

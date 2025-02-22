@@ -10,7 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
-import os
 from pathlib import Path
 from dotenv import load_dotenv
 from decouple import config
@@ -22,7 +21,7 @@ load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Check if we are in production
-IS_PRODUCTION = os.getenv("DJANGO_PRODUCTION", "False") == "True"
+IS_PRODUCTION = config("ENVIRONMENET", default="production") == "production"
 
 
 # Quick-start development settings - unsuitable for production
@@ -32,9 +31,16 @@ IS_PRODUCTION = os.getenv("DJANGO_PRODUCTION", "False") == "True"
 SECRET_KEY = "django-insecure-ktwmnl&jt5cnb-62ay4nsf8#y$z3wj%pnxf%i^qj8z_=h-m^**"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if IS_PRODUCTION:
+    DEBUG = False
+else:
+    DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="flint-1cek.onrender.com").split(",")
+
+CSRF_TRUSTED_ORIGINS = [f"https://{host}" for host in ALLOWED_HOSTS]
+
+SECURE_SSL_REDIRECT = config("SECURE_SSL_REDIRECT", default="True") == "True"
 
 
 # Application definition
@@ -109,11 +115,11 @@ WSGI_APPLICATION = "flint.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("DB_NAME", "default_db"),  # Default value if not found
-        "HOST": os.getenv("DB_HOST", "localhost"),
-        "PORT": os.getenv("DB_PORT", "5432"),
-        "USER": os.getenv("DB_USER", "default_user"),
-        "PASSWORD": os.getenv("DB_PASSWORD", "default_password"),
+        "NAME": config("DB_NAME", default="default_db"),  # Default value if not found
+        "HOST": config("DB_HOST", default="localhost"),
+        "PORT": config("DB_PORT", default=5432, cast=int),
+        "USER": config("DB_USER", default="default_user"),
+        "PASSWORD": config("DB_PASSWORD", default="default_password"),
     }
 }
 
@@ -181,19 +187,22 @@ AWS_S3_SIGNATURE_VERSION = "s3v4"
 # In Production: Serve from Amazon S3
 if IS_PRODUCTION:
     # Use S3 for static file storage
-    STATICFILES_STORAGE = "flint.storage_backends.S3StaticStorage"
+    print("------------------------------> in production if ")
     AWS_STATIC_LOCATION = "static"
     STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_STATIC_LOCATION}/"
 
     # Prevent overwriting static files in S3 to avoid accidental overwrites
-    AWS_S3_OBJECT_PARAMETERS = {
-        "CacheControl": "max-age=86400",  # Cache for one day
-        "ACL": "public-read",
-    }
+    # AWS_S3_OBJECT_PARAMETERS = {
+    #     "CacheControl": "max-age=86400",
+    # }
+    STATICFILES_STORAGE = "flint.storage_backends.S3StaticStorage"
+    STATIC_ROOT = BASE_DIR / "staticfiles"  # Add this line for a dummy static root
 else:
+    print("------------------------------> in development else ")
     # Local static file handling in development
     STATIC_URL = "/static/"
     STATICFILES_DIRS = [BASE_DIR / "static"]
+    STATIC_ROOT = BASE_DIR / "staticfiles"
 
 
 # --------------------------
