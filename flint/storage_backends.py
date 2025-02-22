@@ -18,5 +18,5 @@ class S3MediaStorage(S3Boto3Storage):
     """Custom S3 storage for media files."""
 
     location = "media"
-    default_acl = "public_read"  # Publicly readable
+    default_acl = None # Fine-grained access control via S3 policies
     file_overwrite = True  # Allow overwriting user-uploaded files
