@@ -2,6 +2,7 @@
     review/views.py
 """
 
+import logging
 from datetime import timedelta
 from django.utils.timezone import now
 from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
@@ -15,6 +16,7 @@ from review.forms import CreateReview, ReviewEditForm  # pylint: disable=import-
 from .models import Review
 
 User = get_user_model()
+logger = logging.getLogger("django.request")
 
 
 def review_catalog_view(request):
@@ -72,6 +74,9 @@ def review_information_view(request, slug):
 def review_enroll_view(request):
     """review_enroll_view function"""
     if request.method == "POST":
+        logger.info(
+            "######################## user is enrolling a new review",
+        )
         form = CreateReview(request.POST, request.FILES)
         if form.is_valid():
             newreview = form.save(commit=False)
@@ -88,7 +93,7 @@ def review_enroll_view(request):
 @login_required(login_url="user:login")
 def review_edit_view(request, slug):
     """review_edit_view function"""
-
+    logger.info("Hello=====================>")
     review = get_object_or_404(Review, slug=slug)
 
     if review.user != request.user:
@@ -96,6 +101,7 @@ def review_edit_view(request, slug):
 
     if request.method == "POST":
         form = ReviewEditForm(request.POST, instance=review)
+        logger.info("######################## user is editing a new review ")
         if form.is_valid():
             form.save()
             return redirect("review:information", slug=review.slug)
