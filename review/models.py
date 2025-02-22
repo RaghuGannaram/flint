@@ -2,12 +2,21 @@
     review/models.py
 """
 
+import os
+import uuid
 from django.utils.text import slugify
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
 from django.contrib.postgres.indexes import GinIndex, BTreeIndex
 from flint.storage_backends import S3MediaStorage
 from user.models import User
+
+
+def unique_review_path(_instance, filename):
+    """Generate a unique file path for review images"""
+    ext = os.path.splitext(filename)[-1]
+    unique_filename = f"{uuid.uuid4().hex}{ext}"
+    return f"reviews/{unique_filename}"
 
 
 class Review(models.Model):
@@ -20,7 +29,7 @@ class Review(models.Model):
     tags = ArrayField(models.CharField(max_length=100), blank=True, default=list)
     rating = models.IntegerField(choices=[(i, i) for i in range(1, 6)])
     image = models.ImageField(
-        storage=S3MediaStorage(), upload_to="reviews/", blank=True, null=True
+        storage=S3MediaStorage(), upload_to=unique_review_path, blank=True, null=True
     )
     slug = models.SlugField(unique=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)

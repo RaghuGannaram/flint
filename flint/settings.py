@@ -32,8 +32,10 @@ SECRET_KEY = "django-insecure-ktwmnl&jt5cnb-62ay4nsf8#y$z3wj%pnxf%i^qj8z_=h-m^**
 
 # SECURITY WARNING: don't run with debug turned on in production!
 if IS_PRODUCTION:
+    print("Running in production mode 🚀")
     DEBUG = False
 else:
+    print("Running in development mode 🚀")
     DEBUG = True
 
 ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="flint-1cek.onrender.com").split(",")
@@ -187,7 +189,6 @@ AWS_S3_SIGNATURE_VERSION = "s3v4"
 # In Production: Serve from Amazon S3
 if IS_PRODUCTION:
     # Use S3 for static file storage
-    print("------------------------------> in production if ")
     AWS_STATIC_LOCATION = "static"
     STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_STATIC_LOCATION}/"
 
@@ -198,7 +199,6 @@ if IS_PRODUCTION:
     STATICFILES_STORAGE = "flint.storage_backends.S3StaticStorage"
     STATIC_ROOT = BASE_DIR / "staticfiles"  # Add this line for a dummy static root
 else:
-    print("------------------------------> in development else ")
     # Local static file handling in development
     STATIC_URL = "/static/"
     STATICFILES_DIRS = [BASE_DIR / "static"]
