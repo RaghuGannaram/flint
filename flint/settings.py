@@ -13,12 +13,16 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 import os
 from pathlib import Path
 from dotenv import load_dotenv
+from decouple import config
 
 # Load environment variables from .env file
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Check if we are in production
+IS_PRODUCTION = os.getenv("DJANGO_PRODUCTION", "False") == "True"
 
 
 # Quick-start development settings - unsuitable for production
@@ -30,7 +34,7 @@ SECRET_KEY = "django-insecure-ktwmnl&jt5cnb-62ay4nsf8#y$z3wj%pnxf%i^qj8z_=h-m^**
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["https://flint-1cek.onrender.com"]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -49,6 +53,8 @@ INSTALLED_APPS = [
     # Custom applications
     "user",
     "review",
+    # For S3 Storage
+    "storages",
 ]
 
 TAILWIND_APP_NAME = "theme"
@@ -144,16 +150,60 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
+# --------------------------
+# AMAZON S3 CONFIGURATION
+# --------------------------Stay tuned bye bye bye bye bye
+AWS_ACCESS_KEY_ID = config("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = config("AWS_SECRET_ACCESS_KEY")
+AWS_STORAGE_BUCKET_NAME = config("AWS_STORAGE_BUCKET_NAME")
+AWS_S3_REGION_NAME = config("AWS_S3_REGION_NAME", default="us-east-1")
+AWS_S3_CUSTOM_DOMAIN = (
+    f"{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com"
+)
 
-STATIC_URL = "static/"
-MEDIA_URL = "media/"
 
-STATIC_ROOT = BASE_DIR / "assets"
-MEDIA_ROOT = BASE_DIR / "media"
+# Allow overwriting media files (e.g., profile pictures)
+AWS_S3_FILE_OVERWRITE = True
 
-STATICFILES_DIRS = [BASE_DIR / "static"]
+# Enable encryption for files stored in S3
+AWS_S3_ENCRYPTION = True
+
+# Ensure files are private by default unless explicitly set
+AWS_DEFAULT_ACL = None  # None ensures fine-grained control via S3 policies
+
+# Signature Version to use (Recommended: v4)
+AWS_S3_SIGNATURE_VERSION = "s3v4"
+
+# --------------------------
+# STATIC FILES CONFIGURATION
+# --------------------------
+# In Development: Serve static files locally
+# In Production: Serve from Amazon S3
+if IS_PRODUCTION:
+    # Use S3 for static file storage
+    STATICFILES_STORAGE = "flint.storage_backends.S3StaticStorage"
+    AWS_STATIC_LOCATION = "static"
+    STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_STATIC_LOCATION}/"
+
+    # Prevent overwriting static files in S3 to avoid accidental overwrites
+    AWS_S3_OBJECT_PARAMETERS = {
+        "CacheControl": "max-age=86400",  # Cache for one day
+        "ACL": "public-read",
+    }
+else:
+    # Local static file handling in development
+    STATIC_URL = "/static/"
+    STATICFILES_DIRS = [BASE_DIR / "static"]
+
+
+# --------------------------
+# MEDIA FILES CONFIGURATION
+# --------------------------
+# Media files (user uploads) should always be stored on S3, even in development
+AWS_MEDIA_LOCATION = "media"
+MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_MEDIA_LOCATION}/"
+DEFAULT_FILE_STORAGE = "flint.storage_backends.S3MediaStorage"
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

@@ -17,8 +17,9 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
-from django.conf import settings
-from django.conf.urls.static import static
+
+# from django.conf import settings
+# from django.conf.urls.static import static
 from .views import home_view, about_view, contact_view, terms_view, privacy_view
 
 urlpatterns = [
@@ -34,6 +35,7 @@ urlpatterns = [
 ]
 
 
-# Serve media files in development mode
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# Commented as we are serving media files from AWS S3 in both development and production mode
+# # Serve media files in development mode
+# if settings.DEBUG:
+#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
