@@ -74,9 +74,6 @@ def review_information_view(request, slug):
 def review_enroll_view(request):
     """review_enroll_view function"""
     if request.method == "POST":
-        logger.info(
-            "######################## user is enrolling a new review",
-        )
         form = CreateReview(request.POST, request.FILES)
         if form.is_valid():
             newreview = form.save(commit=False)
@@ -93,15 +90,13 @@ def review_enroll_view(request):
 @login_required(login_url="user:login")
 def review_edit_view(request, slug):
     """review_edit_view function"""
-    logger.info("Hello=====================>")
     review = get_object_or_404(Review, slug=slug)
 
     if review.user != request.user:
         return redirect("review:information", slug=review.slug)
 
     if request.method == "POST":
-        form = ReviewEditForm(request.POST, instance=review)
-        logger.info("######################## user is editing a new review ")
+        form = ReviewEditForm(request.POST, request.FILES, instance=review)
         if form.is_valid():
             form.save()
             return redirect("review:information", slug=review.slug)
@@ -109,6 +104,21 @@ def review_edit_view(request, slug):
         form = ReviewEditForm(instance=review)
 
     return render(request, "review/edit.html", {"form": form, "review": review})
+
+
+@login_required(login_url="user:login")
+def review_delete_view(request, slug):
+    """View to delete a review."""
+    review = get_object_or_404(Review, slug=slug)
+
+    if request.user != review.user:
+        return redirect("review:information", slug=review.slug)
+
+    if review.image:
+        review.image.delete(save=False)
+
+    review.delete()
+    return redirect("review:catalog")
 
 
 def search_reviews(query, min_rating=None, recent_days=None):

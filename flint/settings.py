@@ -40,6 +40,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # For S3 Storage
+    "storages",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -53,8 +55,6 @@ INSTALLED_APPS = [
     # Custom applications
     "user",
     "review",
-    # For S3 Storage
-    "storages",
 ]
 
 TAILWIND_APP_NAME = "theme"
